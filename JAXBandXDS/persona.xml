@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Persona>
+    <PersonSurname>Gay Santo</PersonSurname>
+    <PersonName>nicola</PersonName>
+    <PersonBDay xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">2019-06-25</PersonBDay>
+</Persona>
