@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://pizzaws.mycompany.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="pizzaWSImplService" targetNamespace="http://pizzaws.mycompany.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pizzaws.mycompany.com/" elementFormDefault="unqualified" targetNamespace="http://pizzaws.mycompany.com/" version="1.0">
+
+  <xs:element name="getCosts" type="tns:getCosts"/>
+
+  <xs:element name="getCostsResponse" type="tns:getCostsResponse"/>
+
+  <xs:element name="getMenu" type="tns:getMenu"/>
+
+  <xs:element name="getMenuResponse" type="tns:getMenuResponse"/>
+
+  <xs:complexType name="getCosts">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getCostsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getMenu">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getMenuResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCosts">
+    <wsdl:part element="tns:getCosts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCostsResponse">
+    <wsdl:part element="tns:getCostsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMenu">
+    <wsdl:part element="tns:getMenu" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMenuResponse">
+    <wsdl:part element="tns:getMenuResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="pizzaWSInterface">
+    <wsdl:operation name="getCosts">
+      <wsdl:input message="tns:getCosts" name="getCosts">
+    </wsdl:input>
+      <wsdl:output message="tns:getCostsResponse" name="getCostsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMenu">
+      <wsdl:input message="tns:getMenu" name="getMenu">
+    </wsdl:input>
+      <wsdl:output message="tns:getMenuResponse" name="getMenuResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="pizzaWSImplServiceSoapBinding" type="tns:pizzaWSInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCosts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCosts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCostsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMenu">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMenu">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMenuResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="pizzaWSImplService">
+    <wsdl:port binding="tns:pizzaWSImplServiceSoapBinding" name="pizzaWSImplPort">
+      <soap:address location="http://localhost:8080/pizza"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
