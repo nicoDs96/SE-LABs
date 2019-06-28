@@ -1,4 +1,5 @@
 # RESTful WS w Apache CXF  
+https://cxf.apache.org/docs/jax-rs-basics.html#JAX-RSBasics-@Path  
 POM  
 ```
 <?xml version="1.0" encoding="UTF-8"?>
