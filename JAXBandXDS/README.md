@@ -9,7 +9,10 @@ Annotazioni sulla classe che vogliamo trasformare in xml:
   Class declaration(){}  
  @XmlElement(name="attributeName", required = true)  
   attributeSetter(){}  
- @XmlAttribute(Name="xmlClassAttributeNmae")  <ClassNameOrSimilar xmlClassAttributeNmae=value>  
+ @XmlAttribute(Name="xmlClassAttributeNmae")  <ClassNameOrSimilar xmlClassAttributeNmae=value>
+ //specificare un adapter
+ @XmlJavaTypeAdapter(CLASSNAME.class)
+
 ```
 ### NB la classe deve avere un costruttore vuoto, l'oggetto va inizzializzato con i setter di ogni attributo, a meno che non si voglia definire un Adapter personalizzato (NO)  
 
