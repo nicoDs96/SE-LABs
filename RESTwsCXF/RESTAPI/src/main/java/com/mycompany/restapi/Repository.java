@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
  * @author Nodes
  */
 @Path("risorse")
-//@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})  for mixed response. use mixed client
-@Produces(MediaType.APPLICATION_XML)
+@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}) 
+//@Produces(MediaType.APPLICATION_XML)
 public class Repository {
     private List<Risorsa> data = new LinkedList<>();
 
