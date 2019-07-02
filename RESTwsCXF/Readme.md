@@ -57,6 +57,16 @@ public static void main(String args[]) {
     }
 ```
 ## Implementazione Client 
+### Step
+1. definire l'url al repository principale
+2. definire il client
+3. creare la richiesta http: HttpGet, HttpPost, HttpPut, HttpDelete verso l'url desiderato
+4. (opt) impostare il body della richiesta con HttpPut.setEntity(XMLstream)
+5. impostare nell'header il Content-Type
+6. eseguire la richiesta con client.execute()
+7. CHIUDERE IL CLIENT   
+
+
 Definire la url di base alla repository principale:  
 ``` private static String BASE_URL = "http://localhost:8080/mainDir/";```  
 Inizzializzare il client:   
