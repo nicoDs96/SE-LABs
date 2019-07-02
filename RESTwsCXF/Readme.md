@@ -1,46 +1,35 @@
 # RESTful WS w Apache CXF  
 https://cxf.apache.org/docs/jax-rs-basics.html#JAX-RSBasics-@Path  
-## POM  
-```
-<?xml version="1.0" encoding="UTF-8"?>
-   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mycompany</groupId>
-    <artifactId>RESTwCXF</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-            <version>3.1.7</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <version>3.1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-jaxrs</artifactId>
-            <version>1.9.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
-        </dependency>
-    
-    </dependencies>
- </project>
-```
 ## Implementazione API
+Esempio API:  
+```
+@Path("resourcesFolder")
+@Produces("text/xml")
+public class mainRepository(){
+/*
+repository data init ...
+*/
+
+//accessing methods
+@GET
+@Path("mamme/{mammtID}")
+public ResClass getMammt(@PathParam("mammtID") String mammtIdentifier){}
+
+@POST
+@Path("mamme")
+public Response addMammt( Mammt mammtObject){}
+
+@PUT
+@Path("mamme/{mammtID}")
+public Response updateMammt(@PathParam("mammtID") String mammtIdentifier, Mammt mammtObjectModified ){//utilizzare l'id per identificare la risorsa e l'oggetto per effettuare le modifiche}
+
+@DELETE
+@Path("mamme/{mammtID}")
+public Response deleteMammt(@PathParam("mammtID") String mammtIdentifier){} 
+
+}
+```
 1. Implementare la repository principale WS REST:  
 1.1 Utilizzare ```@Path("serviceBaseFolder")``` per definire il primo parametro significativo che identifica l' intero servizio in un dato dominio. Esempio www.cazzarola.it/serviceBaseFolder  
 1.2 Utilizzare ```@Produces("text/xml")``` per specificare il tipo di risposta. E' possibile specificare piu' di un tipo di risposta  
@@ -141,4 +130,45 @@ HttpResponse response = client.execute(httpPut);
 ```
 HttpDelete httpDelete = new HttpDelete(BASE_URL + "1/students/1");
 HttpResponse response = client.execute(httpDelete);
+```
+
+## POM  
+```
+<?xml version="1.0" encoding="UTF-8"?>
+   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany</groupId>
+    <artifactId>RESTwCXF</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+            <version>3.1.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+            <version>3.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-jaxrs</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+    
+    </dependencies>
+ </project>
 ```
