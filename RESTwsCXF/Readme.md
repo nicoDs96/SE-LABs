@@ -56,7 +56,7 @@ public static void main(String args[]) {
         System.out.println("Server up and running");
     }
 ```
-### Supporto JSON
+### Supporto JSON Server Side
 1. Sulla definizione della risorsa principale aggiungere l'annotazione: ``` @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})```
 2. Aggiungere nella definizione del server il supporto ad entrambe le estensioni:  
 ```
@@ -70,7 +70,6 @@ providers.add(new JAXBElementProvider());
 providers.add(new JacksonJsonProvider());
 factoryBean.setProviders(providers);
 ```
-
 
 ## Implementazione Client 
 ### Step
@@ -167,6 +166,62 @@ HttpResponse response = client.execute(httpPut);
 HttpDelete httpDelete = new HttpDelete(BASE_URL + "1/students/1");
 HttpResponse response = client.execute(httpDelete);
 ```
+
+### Supporto JSON Client Side
+Il metodo piú efficiente per utilizzare la serializzazione json é attraverso la libreria GSON.
+1. POM:  
+```
+<dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+     <version>2.8.5</version>
+</dependency>
+```
+2. GET/POST  
+```
+
+        /*
+         GET
+        */
+       
+         nomeRisorsa = "tre";
+         geturi = "http://localhost:8080/risorse/"+nomeRisorsa;
+        
+        httpGet = new HttpGet(geturi);
+        httpGet.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Accept", "application/json");
+        response = client.execute(httpGet);
+        System.out.print("\nGet effettuata.\n"
+                + "Content Type Risposta:\n" + response.getEntity().getContentType()
+                + "\nResponse Entity:\t"+response.getEntity().getContent().toString() );
+        
+        Gson gson = new Gson();
+        Risorsa resJSON = (Risorsa) gson.fromJson(EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8), Risorsa.class);
+        System.out.print("\n\nrisorsa JSON:\t"+resJSON.toString());
+        
+        /*
+         POST
+        */
+        
+         oggettoRisorsa = new Risorsa();
+        oggettoRisorsa.setId("quattro");
+        oggettoRisorsa.setName("chinotto");
+        httpPost = new HttpPost(BASE_URL  );
+        //creazione dummy file
+        BufferedWriter writer = new BufferedWriter(new FileWriter("res.json"));
+        writer.write(gson.toJson(oggettoRisorsa));
+        writer.close();
+        file = new File("res.json");
+        
+        targetStream = new FileInputStream(file);
+        httpPost.setEntity(new InputStreamEntity(targetStream)); //set the object as i
+
+        httpPost.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Accept", "application/json");
+        response = client.execute(httpPost);
+        System.out.print("\nPost con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
+```
+
 
 ## POM  
 ```
