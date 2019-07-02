@@ -98,6 +98,16 @@ public static void closeClient() throws IOException {
 ```
 ### HTTP GET
 ```
+ String geturi = "http://localhost:8080/risorse/"+nomeRisorsa;
+ HttpGet httpGet = new HttpGet(geturi);
+ httpGet.setHeader("Content-Type", "text/xml");
+ HttpResponse response = client.execute(httpGet);
+ 
+ Risorsa resFromGet = JAXB.unmarshal( response.getEntity().getContent(), Risorsa.class);
+ System.out.print("\n\nUnmarshall:\t"+resFromGet.toString()+"\n\n");
+```
+oppure:
+```
  URL url = new URL(BASE_URL + "pathAllaRisporsa/"+"parametroURL");
     InputStream input = url.openStream();
     //Supponendo che la classe sia Course
