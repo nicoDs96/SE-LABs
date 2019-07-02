@@ -80,7 +80,7 @@ public class Client {
         httpPost.setEntity(new InputStreamEntity(targetStream)); //set the object as i
 
         httpPost.setHeader("Content-Type", "text/xml");
-        httpGet.setHeader("Accept", "text/xml");
+        //httpPost.setHeader("Accept", "text/xml");
         response = client.execute(httpPost);
         System.out.print("\nPost con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
         
@@ -99,7 +99,7 @@ public class Client {
 
         httpPut.setEntity(new InputStreamEntity(targetStream));
         httpPut.setHeader("Content-Type", "text/xml");
-        httpGet.setHeader("Accept", "text/xml");
+        //httpPut.setHeader("Accept", "text/xml");
         response = client.execute(httpPut);
         System.out.print("\nPut con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
         
