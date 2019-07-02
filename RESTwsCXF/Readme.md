@@ -56,6 +56,22 @@ public static void main(String args[]) {
         System.out.println("Server up and running");
     }
 ```
+### Supporto JSON
+1. Sulla definizione della risorsa principale aggiungere l'annotazione: ``` @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})```
+2. Aggiungere nella definizione del server il supporto ad entrambe le estensioni:  
+```
+Map<Object, Object> extensionMappings = new HashMap<Object, Object>();
+extensionMappings.put("xml", MediaType.APPLICATION_XML);
+extensionMappings.put("json", MediaType.APPLICATION_JSON);
+factoryBean.setExtensionMappings(extensionMappings);
+ 
+List<Object> providers = new ArrayList<Object>();
+providers.add(new JAXBElementProvider());
+providers.add(new JacksonJsonProvider());
+factoryBean.setProviders(providers);
+```
+
+
 ## Implementazione Client 
 ### Step
 1. definire l'url al repository principale
