@@ -5,27 +5,26 @@
  */
 package com.mycompany.clientrest;
 
+import com.google.gson.Gson;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ws.rs.core.MediaType;
+import java.nio.charset.StandardCharsets;
+import static javax.ws.rs.client.Entity.entity;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.*;
-import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.*;
+import org.apache.http.util.EntityUtils;
+
 
 /**
  *
@@ -59,6 +58,7 @@ public class Client {
         
         HttpGet httpGet = new HttpGet(geturi);
         httpGet.setHeader("Content-Type", "text/xml");
+        //httpGet.setHeader("Accept", "text/xml");
         HttpResponse response = client.execute(httpGet);
         System.out.print("\nGet effettuata.\nRisposta:\n" + response.toString()+"\nResponse Entity:\t"+response.getEntity().getContent().toString() );
         Risorsa resFromGet = JAXB.unmarshal( response.getEntity().getContent(), Risorsa.class);
@@ -80,6 +80,7 @@ public class Client {
         httpPost.setEntity(new InputStreamEntity(targetStream)); //set the object as i
 
         httpPost.setHeader("Content-Type", "text/xml");
+        httpGet.setHeader("Accept", "text/xml");
         response = client.execute(httpPost);
         System.out.print("\nPost con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
         
@@ -98,6 +99,7 @@ public class Client {
 
         httpPut.setEntity(new InputStreamEntity(targetStream));
         httpPut.setHeader("Content-Type", "text/xml");
+        httpGet.setHeader("Accept", "text/xml");
         response = client.execute(httpPut);
         System.out.print("\nPut con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
         
@@ -116,6 +118,7 @@ public class Client {
         
         httpGet = new HttpGet(geturi);
         httpGet.setHeader("Content-Type", "text/xml");
+        httpGet.setHeader("Accept", "text/xml");
         response = client.execute(httpGet);
         if(response == null){
            System.out.print("\nGet effettuata, risposta nulla.\nStato:\n" + response.getStatusLine() );
@@ -123,9 +126,50 @@ public class Client {
             System.out.print("\nGet effettuata.\nClasse risposta:\n");
         }
         
-        
+        /*
+         JSON Comunication using GSON from google
+        */
+       System.out.print("\n\n\n---------------------------------------\nJson Messages\n---------------------------------------\n\n\n");
+        /*
+         GET
+         */
        
+         nomeRisorsa = "tre";
+         geturi = "http://localhost:8080/risorse/"+nomeRisorsa;
         
+        httpGet = new HttpGet(geturi);
+        httpGet.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Accept", "application/json");
+        response = client.execute(httpGet);
+        System.out.print("\nGet effettuata.\n"
+                + "Content Type Risposta:\n" + response.getEntity().getContentType()
+                + "\nResponse Entity:\t"+response.getEntity().getContent().toString() );
+        
+        Gson gson = new Gson();
+        Risorsa resJSON = (Risorsa) gson.fromJson(EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8), Risorsa.class);
+        System.out.print("\n\nrisorsa JSON:\t"+resJSON.toString());
+        
+        /*
+         POST
+        */
+        
+         oggettoRisorsa = new Risorsa();
+        oggettoRisorsa.setId("quattro");
+        oggettoRisorsa.setName("chinotto");
+        httpPost = new HttpPost(BASE_URL  );
+        //creazione dummy file
+        BufferedWriter writer = new BufferedWriter(new FileWriter("res.json"));
+        writer.write(gson.toJson(oggettoRisorsa));
+        writer.close();
+        file = new File("res.json");
+        
+        targetStream = new FileInputStream(file);
+        httpPost.setEntity(new InputStreamEntity(targetStream)); //set the object as i
+
+        httpPost.setHeader("Content-Type", "application/json");
+        httpGet.setHeader("Accept", "application/json");
+        response = client.execute(httpPost);
+        System.out.print("\nPost con risorsa:\n"+oggettoRisorsa.toString()+"\neseguita con esito:\t"+response.getStatusLine() );
 
     }
 }
