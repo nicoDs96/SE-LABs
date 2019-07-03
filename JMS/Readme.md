@@ -2,6 +2,18 @@
 è una architettura per lo scambio di messaggi peer to peer o attraverso publish-subscribe.  
 L'architettura che implementa le queue/topic è al di fuori del JMS, che definisce la sola interfaccia per la comunicazione.
 
+# POM
+```
+
+<dependencies>
+        <!-- ActiveMQ -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.14.5</version>
+        </dependency>
+</dependencies>
+```
 ## Producer
 1. Individuare il servizio attraverso JNDI (primo blocco try-catch)
 ```
