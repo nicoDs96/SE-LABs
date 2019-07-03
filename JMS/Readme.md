@@ -95,7 +95,43 @@ public void onMessage(Message mex) {
 }
 ```
 ### Sync
+1. Individuare il servizio attraverso JNDI (primo blocco try-catch)
+```
+//definire record JNDI per raggiungere il servizio:
+Properties props = new Properties();
+props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+//Creare il contesto
+jndiContext = new InitialContext(props);   
+```
+2. Inizializzare la connectionf factory per il topic desiderato  
+```
+topicConnectionFactory = (ConnectionFactory)jndiContext.lookup("ConnectionFactory");
+destination = (Destination)jndiContext.lookup(destinationName);
+```
+3. Instanziare la connessione verso il topic
+```
+topicConnection = (TopicConnection)topicConnectionFactory.createConnection();
+```
+4. Instanziare la sessione verso il topic
+```
+topicSession = (TopicSession)topicConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+```
+5. Instanziare il subscriber ad un dato topic 
+```
+TopicSubscriber topicSubscriber = topicSession.createSubscriber((Topic)destination);
 
+```
+6. Invocare la ricezione ogni qual volta si desidera verificare che siano presenti nuovi messaggi
+```
+TextMessage msg = topicSubscriber.receive();
+
+```
+7. Metodi per avviare e terminare la ricezione
+```  
+topicConnection.stop(); //.close()
+topicConnection.start();
+```
 ## Esempi Completi
 ### Producer
 ```
