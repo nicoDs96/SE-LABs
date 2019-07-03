@@ -48,9 +48,6 @@ public class Receiver{
       TextMessage msg ;
       msg = (TextMessage) qrec.receive();
       
-      msg.setText("TESTO");
-      qsender.send(msg);
-      
       qc.close();
    
    }
