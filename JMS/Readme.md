@@ -45,7 +45,7 @@ message.setText(
  producer.send(message);
 ```  
 ## Consumer
-Connessione ad un topic asincrona (utilizza listener onMessage)
+### Async
 1. Individuare il servizio attraverso JNDI (primo blocco try-catch)
 ```
 //definire record JNDI per raggiungere il servizio:
@@ -94,7 +94,7 @@ public void onMessage(Message mex) {
 		}
 }
 ```
-
+### Sync
 
 ## Esempi Completi
 ### Producer
