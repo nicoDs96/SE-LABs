@@ -1,6 +1,8 @@
 # JMS
 è una architettura per lo scambio di messaggi peer to peer o attraverso publish-subscribe.  
 L'architettura che implementa le queue/topic è al di fuori del JMS, che definisce la sola interfaccia per la comunicazione.
+## Client-Server with message response
+https://activemq.apache.org/how-should-i-implement-request-response-with-jms
 
 # POM
 ```
