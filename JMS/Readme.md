@@ -30,7 +30,7 @@ destination = (Destination)jndiContext.lookup(destinationName);
 ```
 5. Generare un producer dalla sessione attraverso la definizione della destinazione
 ```
- producer = session.createProducer(destination);
+ producer = session.createProducer(destination); //oppure: session.createPublisher(destination)
 ```
 6. Creare il messaggio
 ```
@@ -158,7 +158,7 @@ public static void  main(String[] args) throws NamingException, JMSException {
   try {
     connection = connectionFactory.createConnection();
     session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-    producer = session.createProducer(destination);
+    producer = session.createProducer(destination); //oppure: session.createPublisher(destination)
     
     
     
