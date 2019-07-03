@@ -1,5 +1,12 @@
 # Point to Point JMS
-Clients pp  
+Clients pp. Per definire ictx utilizzare:  
+```
+Properties props = new Properties();
+props.setProperty(Context.INITIAL_CONTEXT_FACTORY,"org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+props.setProperty(Context.PROVIDER_URL,"tcp://localhost:61616");
+//Creare il contesto
+ictx = new InitialContext(props);   
+```
 ## Sender
 
 ```
