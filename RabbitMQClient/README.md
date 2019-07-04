@@ -1,4 +1,7 @@
 # Client to Rabbit 
+Tutorials Index:  
+https://www.rabbitmq.com/getstarted.html  
+
 https://www.rabbitmq.com/tutorials/tutorial-one-java.html
 
 ## POM
@@ -11,6 +14,7 @@ https://www.rabbitmq.com/tutorials/tutorial-one-java.html
 ```
 
 ## Sending a message to the Queue 
+Prima di inviare un messaggio spesso è necessario definire un exchange, specialemente se si lavora con PS o  Topic Subscription.  Il codice che segue è un semplice esempio di p2p 
 ```
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
