@@ -1,4 +1,4 @@
-# Client to Rabbit 
+# Client Rabbit 
 Tutorials Index:  
 https://www.rabbitmq.com/getstarted.html  
 
